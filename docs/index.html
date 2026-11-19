@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Học tiếng Trung Thương mại mỗi ngày</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff4f8; --bg2:#ffe9f1; --card:#ffffff; --pink:#ff6b9d; --pink-d:#e2477e; --pink-s:#ffd3e3; --pink-xs:#fff0f5;
+  --rose:#ff9ebd; --peach:#ffc2a8; --lav:#e6d7ff; --ink:#4a2238; --ink2:#8a5a72; --line:#f6d5e2;
+  --ok:#2fbf8f; --ok-s:#dcf7ec; --bad:#f2647a; --bad-s:#ffe1e6; --gold:#ffb547;
+  --r:22px; --shadow:0 10px 30px -12px rgba(226,71,126,.35);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:"Be Vietnam Pro",system-ui,sans-serif;color:var(--ink);background:
+  radial-gradient(1200px 500px at 110% -10%, #ffd9e7 0%, transparent 60%),
+  radial-gradient(900px 500px at -20% 10%, #ffe7f0 0%, transparent 55%),
+  var(--bg);min-height:100vh}
+.zh{font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+.zhs{font-family:"Noto Serif SC","Noto Sans SC",serif}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px 110px}
+button{font-family:inherit;cursor:pointer;border:none;color:inherit}
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--pink),var(--rose));display:grid;place-items:center;color:#fff;font-size:22px;box-shadow:var(--shadow)}
+.brand b{display:block;font-size:15px}
+.brand span{font-size:12px;color:var(--ink2)}
+.streak{display:flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--line);padding:7px 12px;border-radius:999px;font-weight:700;font-size:14px}
+/* cards */
+.card{background:var(--card);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);border:1px solid #fde3ec}
+.hero{background:linear-gradient(140deg,#ff7aa8 0%,#ff9ebd 55%,#ffb9a3 100%);color:#fff;position:relative;overflow:hidden;border:none}
+.hero h1{margin:0 0 4px;font-size:22px;line-height:1.25}
+.hero p{margin:0;opacity:.93;font-size:14px}
+.hero .deco{position:absolute;right:-6px;bottom:-26px;font-size:120px;opacity:.16;font-weight:700}
+.ringrow{display:flex;align-items:center;gap:16px;margin-top:16px}
+.ring{--p:0;width:86px;height:86px;border-radius:50%;background:conic-gradient(#fff calc(var(--p)*1%), rgba(255,255,255,.28) 0);display:grid;place-items:center;flex:none}
+.ring i{width:68px;height:68px;border-radius:50%;background:rgba(255,122,168,.9);display:grid;place-items:center;font-style:normal;font-weight:800;font-size:17px}
+.ringtxt b{font-size:15px;display:block}
+.ringtxt span{font-size:13px;opacity:.92}
+.cta{margin-top:16px;width:100%;background:#fff;color:var(--pink-d);font-weight:800;font-size:16px;padding:15px;border-radius:16px;box-shadow:0 6px 16px -8px rgba(120,0,50,.45);transition:transform .15s}
+.cta:active{transform:scale(.97)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.stat{background:#fff;border-radius:18px;padding:12px 8px;text-align:center;border:1px solid #fde3ec}
+.stat b{font-size:22px;display:block;color:var(--pink-d)}
+.stat span{font-size:11.5px;color:var(--ink2)}
+h2.sec{font-size:15px;margin:22px 4px 10px;display:flex;align-items:center;gap:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{background:#fff;border-radius:20px;padding:16px 14px;text-align:left;border:1px solid #fde3ec;box-shadow:0 6px 18px -14px rgba(226,71,126,.6);transition:transform .15s}
+.tile:active{transform:scale(.97)}
+.tile .ic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;font-size:20px;margin-bottom:10px}
+.tile b{display:block;font-size:14.5px}
+.tile span{font-size:12px;color:var(--ink2)}
+.tile[disabled]{opacity:.45}
+/* sentence of day */
+.sod .lbl{font-size:12px;font-weight:700;color:var(--pink-d);text-transform:uppercase;letter-spacing:.06em}
+.l3{margin-top:8px}
+.l3 .h{font-size:20px;line-height:1.5}
+.l3 .p{color:var(--pink-d);font-size:14.5px;margin-top:2px}
+.l3 .v{color:var(--ink2);font-size:14px;margin-top:2px}
+.spk{width:38px;height:38px;border-radius:50%;background:var(--pink-xs);border:1.5px solid var(--pink-s);display:inline-grid;place-items:center;font-size:17px;flex:none}
+.spk.on{background:var(--pink);color:#fff;border-color:var(--pink)}
+.row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+/* nav */
+.nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:20;padding-bottom:env(safe-area-inset-bottom)}
+.nav .in{display:flex;max-width:560px;width:100%}
+.nav button{flex:1;background:none;padding:10px 4px 12px;font-size:11.5px;color:var(--ink2);display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:600}
+.nav button .e{font-size:21px;filter:grayscale(.6);opacity:.75}
+.nav button.act{color:var(--pink-d)}
+.nav button.act .e{filter:none;opacity:1}
+.view{display:none;animation:fade .25s ease}
+.view.act{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* study */
+.bar{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.x{width:38px;height:38px;border-radius:12px;background:#fff;border:1.5px solid var(--line);font-size:18px;flex:none}
+.prog{flex:1;height:12px;border-radius:99px;background:var(--pink-s);overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--rose));border-radius:99px;transition:width .35s}
+.cnt{font-size:13px;font-weight:700;color:var(--ink2);min-width:44px;text-align:right}
+.flash{min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;cursor:pointer}
+.tag{position:absolute;top:14px;left:14px;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--pink-xs);color:var(--pink-d)}
+.tag.new{background:#fff3d6;color:#b77400}
+.flash .spk{position:absolute;top:12px;right:12px}
+.bigzh{font-size:64px;font-weight:700;line-height:1.15;letter-spacing:.04em}
+.hint{margin-top:18px;font-size:13px;color:var(--ink2)}
+.back{width:100%;margin-top:14px;padding-top:14px;border-top:1.5px dashed var(--line);text-align:left}
+.py{font-size:22px;color:var(--pink-d);font-weight:600;text-align:center}
+.mean{font-size:18px;font-weight:700;text-align:center;margin-top:4px}
+.sub{font-size:13px;color:var(--ink2);text-align:center;margin-top:6px}
+.ex{background:var(--pink-xs);border-radius:16px;padding:12px 14px;margin-top:14px;position:relative}
+.ex .l3{margin-top:0;padding-right:44px}
+.ex .l3 .h{font-size:18px}
+.ex .spk{position:absolute;top:10px;right:10px;width:34px;height:34px;font-size:15px}
+.rate{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.rate button{padding:12px 4px;border-radius:15px;font-weight:700;font-size:14px;background:#fff;border:1.5px solid var(--line)}
+.rate button small{display:block;font-weight:500;font-size:11px;color:var(--ink2);margin-top:2px}
+.rate .r0{background:var(--bad-s);border-color:#ffc6cf;color:#c4364c}
+.rate .r1{background:#fff3e0;border-color:#ffd9a6;color:#b0680b}
+.rate .r2{background:var(--ok-s);border-color:#b5ebd6;color:#1d8a66}
+.rate .r3{background:#e6f0ff;border-color:#c5d8ff;color:#2f5fbf}
+.revealbtn{margin-top:14px;width:100%;padding:15px;border-radius:16px;background:linear-gradient(90deg,var(--pink),var(--rose));color:#fff;font-weight:800;font-size:16px;box-shadow:var(--shadow)}
+/* quiz */
+.q{min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative}
+.qlbl{font-size:12.5px;font-weight:700;color:var(--ink2);margin-bottom:10px}
+.qtext{font-size:22px;font-weight:700}
+.qzh{font-size:52px;font-weight:700}
+.cloze{font-size:22px;line-height:1.7}
+.cloze u{text-decoration:none;display:inline-block;min-width:2.6em;border-bottom:3px solid var(--pink);color:var(--pink-d)}
+.opts{display:grid;gap:10px;margin-top:14px}
+.opt{background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px 16px;text-align:left;font-size:16px;font-weight:600;transition:all .15s;display:flex;align-items:center;gap:12px}
+.opt .k{width:28px;height:28px;border-radius:9px;background:var(--pink-xs);display:grid;place-items:center;font-size:13px;color:var(--pink-d);flex:none}
+.opt.zhopt{font-size:24px}
+.opt.ok{border-color:var(--ok);background:var(--ok-s)}
+.opt.bad{border-color:var(--bad);background:var(--bad-s)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:12px;border-radius:16px;padding:12px 14px;display:none}
+.fb.show{display:block;animation:fade .2s}
+.fb.ok{background:var(--ok-s)}
+.fb.bad{background:var(--bad-s)}
+.fb b{display:block;margin-bottom:4px}
+.next{margin-top:12px;width:100%;padding:15px;border-radius:16px;background:var(--ink);color:#fff;font-weight:800;font-size:16px;display:none}
+.next.show{display:block}
+/* list */
+.search{width:100%;padding:13px 16px;border-radius:16px;border:1.5px solid var(--line);font-family:inherit;font-size:15px;background:#fff;color:var(--ink);outline:none}
+.search:focus{border-color:var(--pink)}
+.chips{display:flex;gap:8px;margin:12px 0;overflow-x:auto;padding-bottom:2px}
+.chip{padding:8px 14px;border-radius:99px;background:#fff;border:1.5px solid var(--line);font-size:13px;font-weight:600;white-space:nowrap}
+.chip.act{background:var(--pink);border-color:var(--pink);color:#fff}
+.wi{background:#fff;border-radius:18px;border:1px solid #fde3ec;margin-bottom:10px;overflow:hidden}
+.wh{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer}
+.wh .z{font-size:24px;font-weight:700;min-width:64px}
+.wh .m{flex:1;min-width:0}
+.wh .m b{display:block;color:var(--pink-d);font-weight:600;font-size:14px}
+.wh .m span{font-size:13.5px;color:var(--ink)}
+.dots{display:flex;gap:3px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--pink-s)}
+.dots i.f{background:var(--pink)}
+.wb{display:none;padding:0 14px 14px}
+.wi.open .wb{display:block}
+.wi.open .wh{background:var(--pink-xs)}
+.note{font-size:12.5px;color:var(--ink2);text-align:center;margin:16px 0 0}
+/* practice header */
+.pmode{display:grid;gap:12px}
+.pm{display:flex;align-items:center;gap:14px;background:#fff;border-radius:20px;padding:16px;border:1px solid #fde3ec;text-align:left;box-shadow:0 6px 18px -14px rgba(226,71,126,.6)}
+.pm .ic{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:24px;flex:none}
+.pm b{display:block;font-size:15px}
+.pm span{font-size:12.5px;color:var(--ink2)}
+/* settings */
+.set{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)}
+.set:last-child{border-bottom:none}
+.set b{display:block;font-size:14.5px}
+.set span{font-size:12.5px;color:var(--ink2)}
+.seg{display:flex;background:var(--pink-xs);border-radius:12px;padding:3px}
+.seg button{background:none;padding:7px 11px;border-radius:9px;font-weight:700;font-size:13px;color:var(--ink2)}
+.seg button.act{background:#fff;color:var(--pink-d);box-shadow:0 2px 6px rgba(226,71,126,.2)}
+.sw{width:50px;height:30px;border-radius:99px;background:var(--pink-s);position:relative;transition:.2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 2px 5px rgba(0,0,0,.15)}
+.sw.on{background:var(--pink)}
+.sw.on::after{left:23px}
+.danger{background:var(--bad-s);color:#c4364c;font-weight:700;padding:10px 14px;border-radius:12px;font-size:13px}
+/* done */
+.done{text-align:center;padding:30px 18px}
+.done .big{font-size:64px}
+.done h2{margin:6px 0}
+.done p{color:var(--ink2);margin:0 0 6px}
+.heart{position:fixed;top:-30px;font-size:22px;pointer-events:none;animation:fall linear forwards;z-index:50}
+@keyframes fall{to{transform:translateY(110vh) rotate(260deg);opacity:.2}}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:14px;font-size:13.5px;opacity:0;transition:.25s;z-index:60;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.sync{font-size:11.5px;color:var(--ink2);text-align:center;margin-top:18px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px}
+.day{border-radius:14px;padding:8px 2px;text-align:center;background:var(--pink-xs);border:1.5px solid transparent;font-size:11px;color:var(--ink2);line-height:1.35}
+.day b{display:block;font-size:13px;color:var(--ink)}
+.day .e{font-size:17px;display:block;margin:2px 0}
+.day.today{border-color:var(--pink);background:#fff}
+.day.done{background:linear-gradient(160deg,#ffd3e3,#ffe8d9)}
+.day .n{font-weight:700;color:var(--pink-d)}
+.tip{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink2);background:#fff;border:1px dashed var(--pink-s);border-radius:16px;padding:12px 14px;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><div class="logo zh">学</div><div><b>Tiếng Trung Thương mại</b><span>Bài 1 · 到达中国 · Đến Trung Quốc</span></div></div>
+    <div class="streak" id="streak">🔥 0</div>
+  </div>
+
+  <!-- HOME -->
+  <section class="view act" id="v-home">
+    <div class="card hero">
+      <div class="deco zhs">学</div>
+      <h1 id="greet">Chào bạn 🌸</h1>
+      <p id="greetSub">Mỗi ngày 10 phút, từ vựng sẽ tự ở lại.</p>
+      <div class="ringrow">
+        <div class="ring" id="ring"><i id="ringPct">0%</i></div>
+        <div class="ringtxt"><b id="goalTxt">0 / 40 XP hôm nay</b><span id="dueTxt">…</span></div>
+      </div>
+      <button class="cta" id="startBtn">Bắt đầu học hôm nay ✨</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="sLearned">0</b><span>Đã gặp / 42</span></div>
+      <div class="stat"><b id="sMaster">0</b><span>Đã thuộc</span></div>
+      <div class="stat"><b id="sXp">0</b><span>Tổng XP</span></div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <div class="row"><div class="sodl" style="font-size:12px;font-weight:700;color:var(--pink-d);text-transform:uppercase;letter-spacing:.06em">📅 Lộ trình của bạn</div><span style="font-size:12px;color:var(--ink2)">mở lại trang này mỗi ngày</span></div>
+      <div class="days" id="past"></div>
+      <div style="font-size:12.5px;font-weight:700;margin:14px 0 6px">Sắp tới</div>
+      <div class="days" id="plan"></div>
+      <div class="tip" id="planTip" style="margin-top:12px"></div>
+    </div>
+
+    <div class="card sod">
+      <div class="row"><div class="lbl">💬 Câu dùng hôm nay</div><button class="spk" id="sodSpk" aria-label="Nghe">🔊</button></div>
+      <div class="l3" id="sod"></div>
+      <div class="tip" style="margin-top:12px"><span>💡</span><span>Thử nói to câu này 3 lần, rồi dùng nó trong một tin nhắn WeChat hôm nay với supplier hay đồng nghiệp.</span></div>
+    </div>
+
+    <h2 class="sec">🎀 Luyện nhanh</h2>
+    <div class="grid2">
+      <button class="tile" data-quiz="mean"><div class="ic" style="background:#ffe3ee">👀</div><b>Nhìn chữ đoán nghĩa</b><span>Nhận lại mặt chữ Hán</span></button>
+      <button class="tile" data-quiz="han"><div class="ic" style="background:#efe6ff">✍️</div><b>Nghĩa → chữ Hán</b><span>Nhớ ngược, nhớ sâu</span></button>
+      <button class="tile" data-quiz="listen" id="tileListen"><div class="ic" style="background:#ddf5ff">🎧</div><b>Nghe chọn chữ</b><span>Luyện tai phản xạ</span></button>
+      <button class="tile" data-quiz="cloze"><div class="ic" style="background:#fff0d9">🧩</div><b>Điền vào câu</b><span>Dùng từ đúng ngữ cảnh</span></button>
+    </div>
+  </section>
+
+  <!-- STUDY -->
+  <section class="view" id="v-study">
+    <div class="bar"><button class="x" data-go="home" aria-label="Thoát">✕</button><div class="prog"><i id="sProg"></i></div><div class="cnt" id="sCnt">0/0</div></div>
+    <div id="studyBox"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="view" id="v-quiz">
+    <div class="bar"><button class="x" data-go="practice" aria-label="Thoát">✕</button><div class="prog"><i id="qProg"></i></div><div class="cnt" id="qCnt">0/10</div></div>
+    <div id="quizBox"></div>
+  </section>
+
+  <!-- PRACTICE -->
+  <section class="view" id="v-practice">
+    <h2 class="sec" style="margin-top:4px">🎮 Chọn kiểu luyện tập</h2>
+    <div class="pmode">
+      <button class="pm" data-quiz="mean"><div class="ic" style="background:#ffe3ee">👀</div><div><b>Nhìn chữ đoán nghĩa</b><span>Thấy chữ Hán, chọn nghĩa tiếng Việt</span></div></button>
+      <button class="pm" data-quiz="han"><div class="ic" style="background:#efe6ff">✍️</div><div><b>Nghĩa → chữ Hán</b><span>Thấy tiếng Việt, chọn đúng mặt chữ</span></div></button>
+      <button class="pm" data-quiz="py"><div class="ic" style="background:#ffe9e0">🔤</div><div><b>Chữ Hán → Pinyin</b><span>Đọc đúng thanh điệu</span></div></button>
+      <button class="pm" data-quiz="listen" id="pmListen"><div class="ic" style="background:#ddf5ff">🎧</div><div><b>Nghe chọn chữ</b><span>Nghe phát âm, chọn chữ Hán</span></div></button>
+      <button class="pm" data-quiz="cloze"><div class="ic" style="background:#fff0d9">🧩</div><div><b>Điền từ vào câu thu mua</b><span>Hoàn thành câu ví dụ thực tế</span></div></button>
+      <button class="pm" data-quiz="mix"><div class="ic" style="background:linear-gradient(135deg,#ffd3e3,#e6d7ff)">🌈</div><div><b>Trộn tất cả</b><span>10 câu ngẫu nhiên mọi dạng</span></div></button>
+    </div>
+    <p class="note">Mỗi câu đúng +3 XP · Câu sai sẽ được đưa vào lượt ôn tiếp theo</p>
+  </section>
+
+  <!-- LIST -->
+  <section class="view" id="v-list">
+    <input class="search" id="q" placeholder="Tìm chữ Hán, pinyin hoặc nghĩa…">
+    <div class="chips" id="chips">
+      <button class="chip act" data-f="all">Tất cả</button>
+      <button class="chip" data-f="g1">Từ vựng (1)</button>
+      <button class="chip" data-f="g2">Từ vựng (2)</button>
+      <button class="chip" data-f="pn">Danh từ riêng</button>
+      <button class="chip" data-f="weak">Cần ôn 💗</button>
+    </div>
+    <div id="list"></div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section class="view" id="v-me">
+    <h2 class="sec" style="margin-top:4px">⚙️ Cài đặt học</h2>
+    <div class="card">
+      <div class="set"><div><b>Từ mới mỗi ngày</b><span>Ít mà đều sẽ nhớ lâu hơn</span></div><div class="seg" id="segNew"><button data-v="5">5</button><button data-v="8">8</button><button data-v="12">12</button></div></div>
+      <div class="set"><div><b>Mục tiêu XP / ngày</b><span>~1 XP ≈ 15 giây học</span></div><div class="seg" id="segGoal"><button data-v="30">30</button><button data-v="40">40</button><button data-v="60">60</button></div></div>
+      <div class="set"><div><b>Hiện pinyin ở mặt trước thẻ</b><span>Tắt để luyện nhận mặt chữ</span></div><button class="sw" id="swPy" aria-label="Pinyin mặt trước"></button></div>
+      <div class="set"><div><b>Tự phát âm khi lật thẻ</b><span>Nghe đi nghe lại để nhớ</span></div><button class="sw" id="swAuto" aria-label="Tự phát âm"></button></div>
+    </div>
+    <h2 class="sec">📖 Cách học hiệu quả</h2>
+    <div class="card" style="font-size:13.5px;line-height:1.6;color:var(--ink2)">
+      <b style="color:var(--ink)">1. Ôn ngắt quãng.</b> Từ bạn bấm “Nhớ” sẽ hẹn gặp lại sau 1 → 2 → 4 → 7 → 15 → 30 ngày. Từ “Quên” quay lại ngay trong buổi học.<br>
+      <b style="color:var(--ink)">2. Nhìn chữ trước, pinyin sau.</b> Cố gắng nhớ âm đọc trước khi lật thẻ, như vậy mặt chữ sẽ quay về nhanh hơn.<br>
+      <b style="color:var(--ink)">3. Học qua câu thu mua.</b> Mỗi từ có một câu dùng thực tế với supplier, khách hàng hoặc chủ đầu tư. Nói to câu đó lên.<br>
+      <b style="color:var(--ink)">4. Giữ chuỗi 🔥.</b> Chỉ cần đạt mục tiêu XP mỗi ngày, kể cả ngày bận.
+    </div>
+    <div style="text-align:center;margin-top:18px"><button class="danger" id="resetBtn">Xoá toàn bộ tiến độ</button></div>
+    <div class="sync" id="sync">Đang kết nối…</div>
+  </section>
+</div>
+
+<nav class="nav"><div class="in">
+  <button data-go="home" class="act"><span class="e">🏠</span>Hôm nay</button>
+  <button data-go="practice"><span class="e">🎮</span>Luyện tập</button>
+  <button data-go="list"><span class="e">📒</span>Sổ từ</button>
+  <button data-go="me"><span class="e">🌷</span>Cài đặt</button>
+</div></nav>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ====== DATA: Giáo trình tiếng Trung Thương mại (基础实用商务汉语 第三版 上册) – Bài 1 ====== */
+const W = [
+ // id, han, py, vi, exHan, exPy, exVi, key(in example), group, sub
+ ["daoda","到达","dàodá","đến, tới nơi","样品已经到达我们公司了。","Yàngpǐn yǐjīng dàodá wǒmen gōngsī le.","Mẫu đã đến công ty chúng tôi rồi.","到达","g1"],
+ ["guoji","国际","guójì","quốc tế","我们是一家国际贸易公司。","Wǒmen shì yì jiā guójì màoyì gōngsī.","Chúng tôi là một công ty thương mại quốc tế.","国际","g1"],
+ ["maoyi","贸易","màoyì","thương mại","中越两国的贸易越来越多。","Zhōng Yuè liǎng guó de màoyì yuèláiyuè duō.","Thương mại giữa Trung Quốc và Việt Nam ngày càng nhiều.","贸易","g1"],
+ ["gongsi","公司","gōngsī","công ty","贵公司的报价什么时候能发过来？","Guì gōngsī de bàojià shénme shíhou néng fā guòlai?","Khi nào quý công ty có thể gửi báo giá qua?","公司","g1"],
+ ["daibiao","代表","dàibiǎo","đại diện; người đại diện","我代表采购部欢迎您。","Wǒ dàibiǎo cǎigòubù huānyíng nín.","Tôi thay mặt phòng Thu mua chào mừng ông/bà.","代表","g1"],
+ ["shengyi","生意","shēngyi","việc kinh doanh, buôn bán","希望我们以后能长期做生意。","Xīwàng wǒmen yǐhòu néng chángqī zuò shēngyi.","Hy vọng sau này chúng ta có thể làm ăn lâu dài.","生意","g1"],
+ ["jinchukou","进出口","jìnchūkǒu","xuất nhập khẩu","这批瓷砖是从中国进口的。","Zhè pī cízhuān shì cóng Zhōngguó jìnkǒu de.","Lô gạch men này được nhập khẩu từ Trung Quốc.","进口","g1","进口 jìnkǒu: nhập khẩu, lối vào · 出口 chūkǒu: xuất khẩu, lối ra"],
+ ["rujing","入境","rù jìng","nhập cảnh","入境的时候要填登记卡。","Rù jìng de shíhou yào tián dēngjìkǎ.","Khi nhập cảnh phải điền thẻ đăng ký.","入境","g1"],
+ ["haiguan","海关","hǎiguān","hải quan","货物还在海关，清关需要三天。","Huòwù hái zài hǎiguān, qīngguān xūyào sān tiān.","Hàng vẫn còn ở hải quan, thông quan cần 3 ngày.","海关","g1"],
+ ["guanyuan","官员","guānyuán","viên chức","海关官员要检查我们的样品。","Hǎiguān guānyuán yào jiǎnchá wǒmen de yàngpǐn.","Nhân viên hải quan muốn kiểm tra mẫu của chúng ta.","官员","g1"],
+ ["huzhao","护照","hùzhào","hộ chiếu","请出示您的护照。","Qǐng chūshì nín de hùzhào.","Xin vui lòng xuất trình hộ chiếu.","护照","g1"],
+ ["dengjika","登记卡","dēngjìkǎ","thẻ đăng ký","访客请先在前台登记。","Fǎngkè qǐng xiān zài qiántái dēngjì.","Khách đến thăm vui lòng đăng ký ở quầy lễ tân trước.","登记","g1","登记 dēngjì: đăng ký · 卡 kǎ: thẻ"],
+ ["xingli","行李","xíngli","hành lý","我的行李里有几块大理石样板。","Wǒ de xíngli li yǒu jǐ kuài dàlǐshí yàngbǎn.","Trong hành lý của tôi có vài tấm mẫu đá marble.","行李","g1"],
+ ["xiangzi","箱子","xiāngzi","vali, thùng, hộp","这个箱子里都是产品样品。","Zhège xiāngzi li dōu shì chǎnpǐn yàngpǐn.","Trong thùng này toàn là mẫu sản phẩm.","箱子","g1"],
+ ["chanpin","产品","chǎnpǐn","sản phẩm","你们的新产品有没有检测报告？","Nǐmen de xīn chǎnpǐn yǒu méiyǒu jiǎncè bàogào?","Sản phẩm mới của các anh có báo cáo kiểm định không?","产品","g1"],
+ ["guanggao","广告","guǎnggào","quảng cáo","这些只是广告资料，没有商业价值。","Zhèxiē zhǐshì guǎnggào zīliào, méiyǒu shāngyè jiàzhí.","Đây chỉ là tài liệu quảng cáo, không có giá trị thương mại.","广告","g1"],
+ ["huoyang","货样","huòyàng","hàng mẫu","请先寄货样给我们确认。","Qǐng xiān jì huòyàng gěi wǒmen quèrèn.","Vui lòng gửi hàng mẫu trước để chúng tôi xác nhận.","货样","g1"],
+ ["jiaoshui","交税","jiāo shuì","đóng thuế","超过免税额度的货样需要交税。","Chāoguò miǎnshuì édù de huòyàng xūyào jiāo shuì.","Hàng mẫu vượt định mức miễn thuế thì phải đóng thuế.","交税","g1"],
+ ["shangyejiazhi","商业价值","shāngyè jiàzhí","giá trị thương mại","这个项目的商业价值很高。","Zhège xiàngmù de shāngyè jiàzhí hěn gāo.","Dự án này có giá trị thương mại rất cao.","商业价值","g1","商业 shāngyè: thương mại, thương nghiệp · 价值 jiàzhí: giá trị"],
+ ["mianshui","免税","miǎn shuì","miễn thuế","这些样品是免税的吗？","Zhèxiē yàngpǐn shì miǎnshuì de ma?","Những mẫu này có được miễn thuế không?","免税","g1"],
+ ["chaoguo","超过","chāoguò","vượt quá","交期不能超过三十天。","Jiāoqī bù néng chāoguò sānshí tiān.","Lead time không được vượt quá 30 ngày.","超过","g1"],
+ ["tian","填","tián","điền vào","请填一下这张供应商登记表。","Qǐng tián yíxià zhè zhāng gōngyìngshāng dēngjìbiǎo.","Vui lòng điền vào phiếu đăng ký nhà cung cấp này.","填","g1"],
+ ["shenbaodan","申报单","shēnbàodān","tờ khai","有需要申报的东西，请填海关申报单。","Yǒu xūyào shēnbào de dōngxi, qǐng tián hǎiguān shēnbàodān.","Nếu có đồ cần khai báo, vui lòng điền tờ khai hải quan.","申报单","g1","申报 shēnbào: khai báo (hàng hoá để đóng thuế) · 单 dān: tờ, đơn, phiếu"],
+ ["zhaoshou","招手","zhāo shǒu","vẫy tay","李先生在出口向我招手。","Lǐ xiānsheng zài chūkǒu xiàng wǒ zhāo shǒu.","Anh Lý đứng ở cửa ra vẫy tay với tôi.","招手","g1"],
+ ["fuzongjingli","副总经理","fù zǒngjīnglǐ","phó tổng giám đốc","这是我们公司的副总经理，王先生。","Zhè shì wǒmen gōngsī de fù zǒngjīnglǐ, Wáng xiānsheng.","Đây là Phó Tổng Giám đốc công ty chúng tôi, ông Vương.","副总经理","g1","副 fù: phó · 总经理 zǒngjīnglǐ: tổng giám đốc"],
+ ["laoban","老板","lǎobǎn","ông chủ, sếp","这个价格我得先问一下老板。","Zhège jiàgé wǒ děi xiān wèn yíxià lǎobǎn.","Giá này tôi phải hỏi sếp trước đã.","老板","g1"],
+ ["zongsuan","总算","zǒngsuàn","cuối cùng (thì cũng…)","样板总算通过业主审批了！","Yàngbǎn zǒngsuàn tōngguò yèzhǔ shěnpī le!","Mẫu cuối cùng cũng được Chủ đầu tư phê duyệt rồi!","总算","g1"],
+ ["shouxu","手续","shǒuxù","thủ tục","进口手续都办好了吗？","Jìnkǒu shǒuxù dōu bàn hǎo le ma?","Thủ tục nhập khẩu đã làm xong hết chưa?","手续","g1","办手续 bàn shǒuxù: làm thủ tục"],
+ ["shunli","顺利","shùnlì","thuận lợi, trôi chảy","祝我们合作顺利！","Zhù wǒmen hézuò shùnlì!","Chúc chúng ta hợp tác thuận lợi!","顺利","g1"],
+ ["jiudian","酒店","jiǔdiàn","khách sạn","我们已经帮您订好酒店了。","Wǒmen yǐjīng bāng nín dìng hǎo jiǔdiàn le.","Chúng tôi đã đặt khách sạn giúp ông/bà rồi.","酒店","g1"],
+ ["shi","使","shǐ","khiến cho, làm cho","样品的质量使业主很满意。","Yàngpǐn de zhìliàng shǐ yèzhǔ hěn mǎnyì.","Chất lượng mẫu khiến Chủ đầu tư rất hài lòng.","使","g2"],
+ ["biande","变得","biànde","trở nên, trở thành","原材料涨价以后，报价变得很高。","Yuáncáiliào zhǎngjià yǐhòu, bàojià biànde hěn gāo.","Sau khi nguyên liệu tăng giá, báo giá trở nên rất cao.","变得","g2"],
+ ["yansu","严肃","yánsù","nghiêm túc, nghiêm","业主看样板的时候表情很严肃。","Yèzhǔ kàn yàngbǎn de shíhou biǎoqíng hěn yánsù.","Khi xem mẫu, nét mặt Chủ đầu tư rất nghiêm.","严肃","g2"],
+ ["weixiao","微笑","wēixiào","mỉm cười; nụ cười","供应商微笑着说：“价格可以再商量。”","Gōngyìngshāng wēixiào zhe shuō: “Jiàgé kěyǐ zài shāngliang.”","Nhà cung cấp mỉm cười nói: “Giá cả có thể thương lượng thêm.”","微笑","g2"],
+ ["jinzhang","紧张","jǐnzhāng","căng thẳng","第一次给业主送审样品，我有点儿紧张。","Dì yī cì gěi yèzhǔ sòngshěn yàngpǐn, wǒ yǒudiǎnr jǐnzhāng.","Lần đầu trình mẫu cho Chủ đầu tư, tôi hơi căng thẳng.","紧张","g2"],
+ ["tanpan","谈判","tánpàn","đàm phán","明天我们要跟供应商谈判价格。","Míngtiān wǒmen yào gēn gōngyìngshāng tánpàn jiàgé.","Ngày mai chúng ta phải đàm phán giá với nhà cung cấp.","谈判","g2"],
+ ["qingsong","轻松","qīngsōng","nhẹ nhõm, thoải mái","吃饭的时候大家聊得很轻松。","Chīfàn de shíhou dàjiā liáo de hěn qīngsōng.","Lúc ăn cơm mọi người trò chuyện rất thoải mái.","轻松","g2"],
+ ["danxin","担心","dān xīn","lo lắng","别担心，我们一定按时交货。","Bié dānxīn, wǒmen yídìng ànshí jiāohuò.","Đừng lo, chúng tôi nhất định giao hàng đúng hạn.","担心","g2"],
+ ["leyi","乐意","lèyì","vui lòng, sẵn lòng","我们很乐意为您提供替代方案。","Wǒmen hěn lèyì wèi nín tígōng tìdài fāng'àn.","Chúng tôi rất sẵn lòng cung cấp phương án thay thế cho ông/bà.","乐意","g2"],
+ ["jiaopengyou","交朋友","jiāo péngyou","kết bạn","做生意也是交朋友。","Zuò shēngyi yě shì jiāo péngyou.","Làm ăn cũng là kết bạn.","交朋友","g2"],
+ ["banshiqing","办事情","bàn shìqing","giải quyết công việc","在中国，有熟人办事情方便多了。","Zài Zhōngguó, yǒu shúrén bàn shìqing fāngbiàn duō le.","Ở Trung Quốc, có người quen thì giải quyết công việc thuận tiện hơn nhiều.","办事情","g2"],
+ ["yuelaiyue","越来越","yuèláiyuè","ngày càng","钢材的价格越来越贵。","Gāngcái de jiàgé yuèláiyuè guì.","Giá thép ngày càng đắt.","越来越","g2"],
+].map(a=>({id:a[0],han:a[1],py:a[2],vi:a[3],eh:a[4],ep:a[5],ev:a[6],key:a[7],g:a[8],sub:a[9]||""}));
+const PN = [
+ ["史强生","Shǐ Qiángshēng","Johnson Smith"],["白琳","Bái Lín","Lynn Petty"],
+ ["美国国际贸易公司","Měiguó Guójì Màoyì Gōngsī","Công ty Thương mại Quốc tế Hoa Kỳ"],
+ ["台湾","Táiwān","Đài Loan"],["东方进出口公司","Dōngfāng Jìnchūkǒu Gōngsī","Công ty Xuất nhập khẩu Đông Phương"],["李信文","Lǐ Xìnwén","Lý Tín Văn"]];
+const BYID = Object.fromEntries(W.map(w=>[w.id,w]));
+const INTERVALS=[0,1,2,4,7,15,30,60];
+const MASTER_BOX=4;
+
+/* ====== STATE ====== */
+const LS_KEY="hsk-tm-bai1-v1";
+function today(){const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/864e5)}
+function blank(){return {srs:{},xp:0,xpDay:{d:today(),v:0},streak:{last:-1,n:0},newDay:{d:today(),v:0},set:{newPer:8,goal:40,pyFront:false,auto:true},updated:0}}
+let S=blank();
+try{const raw=localStorage.getItem(LS_KEY); if(raw) S=Object.assign(blank(),JSON.parse(raw));}catch(e){}
+function rollDay(){const t=today(); if(S.xpDay.d!==t) S.xpDay={d:t,v:0}; if(S.newDay.d!==t) S.newDay={d:t,v:0};}
+rollDay();
+
+let db=null, uid=null, ref=null, saving=false, pending=false, saveTimer=null;
+function save(){
+  S.updated=Date.now();
+  try{localStorage.setItem(LS_KEY,JSON.stringify(S))}catch(e){}
+  clearTimeout(saveTimer); saveTimer=setTimeout(flush,1200);
+}
+async function flush(){
+  if(!ref) return;
+  if(saving){pending=true;return}
+  saving=true;
+  try{await ref.set(JSON.parse(JSON.stringify(S))); setSync("☁️ Đã lưu tiến độ vào tài khoản của bạn")}
+  catch(e){setSync("Lưu trên trình duyệt này (chưa lưu lên tài khoản được)")}
+  saving=false; if(pending){pending=false;flush()}
+}
+function setSync(t){const el=document.getElementById("sync"); if(el) el.textContent=t}
+(async()=>{
+  if(!(window.claude&&claude.use)){setSync("Tiến độ được lưu trên trình duyệt này");return}
+  try{
+    const [d,u]=await Promise.all([claude.use("db"),claude.use("user")]);
+    if(!d||!u){setSync("Tiến độ được lưu trên trình duyệt này");return}
+    uid=await u.id(); if(!uid){setSync("Tiến độ được lưu trên trình duyệt này");return}
+    db=d; ref=db.doc("data/users/"+uid+"/progress");
+    const timer=setTimeout(()=>setSync("Chưa kết nối được bộ lưu trữ, đang dùng bản trên trình duyệt"),10000);
+    const snap=await ref.get(); clearTimeout(timer);
+    if(snap.exists){const r=snap.data(); if(r&&(r.updated||0)>(S.updated||0)){S=Object.assign(blank(),JSON.parse(JSON.stringify(r))); rollDay(); try{localStorage.setItem(LS_KEY,JSON.stringify(S))}catch(e){}; renderHome()}
+      else if((S.updated||0)>(r&&r.updated||0)) flush();}
+    else if(S.updated) flush();
+    setSync("☁️ Tiến độ được đồng bộ với tài khoản của bạn");
+  }catch(e){setSync("Tiến độ được lưu trên trình duyệt này")}
+})();
+
+/* ====== TTS ====== */
+let tts=null; let hasSynth='speechSynthesis' in window;
+if(window.claude&&claude.use){claude.use("tts").then(t=>{tts=t;updateListenTiles()}).catch(()=>{})}
+function zhVoice(){try{return speechSynthesis.getVoices().find(v=>/^zh(-|_)?(CN|Hans)?/i.test(v.lang))}catch(e){return null}}
+if(hasSynth){try{speechSynthesis.onvoiceschanged=updateListenTiles}catch(e){}}
+function canSpeak(){return !!tts || (hasSynth && !!zhVoice())}
+function updateListenTiles(){const ok=canSpeak(); ["tileListen","pmListen"].forEach(id=>{const b=document.getElementById(id); if(b){b.disabled=!ok; b.style.display=ok?"":"none"}})}
+let curSpk=null;
+async function speak(text,btn){
+  if(curSpk) curSpk.classList.remove("on"); if(btn){btn.classList.add("on"); curSpk=btn}
+  const off=()=>{if(btn) btn.classList.remove("on")};
+  if(tts){try{await tts.speak(text,{language:"zh-CN",rate:0.85}); off(); return}catch(e){ if(e&&e.code==="not_granted") tts=null; }}
+  if(hasSynth){try{speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.lang="zh-CN"; u.rate=.85; const v=zhVoice(); if(v) u.voice=v; u.onend=off; u.onerror=off; speechSynthesis.speak(u); return}catch(e){}}
+  off(); toast("Thiết bị này chưa hỗ trợ phát âm tiếng Trung");
+}
+
+/* ====== HELPERS ====== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function toast(t){const el=$("#toast"); el.textContent=t; el.classList.add("show"); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove("show"),1800)}
+function hearts(n=24){for(let i=0;i<n;i++){const h=document.createElement("div");h.className="heart";h.textContent=["💗","🌸","✨","💖","🎀"][i%5];h.style.left=Math.random()*100+"vw";h.style.animationDuration=(2.2+Math.random()*2)+"s";h.style.animationDelay=(Math.random()*.6)+"s";document.body.appendChild(h);setTimeout(()=>h.remove(),5000)}}
+function addXP(n){
+  rollDay(); S.xp+=n; S.xpDay.v+=n;
+  const t=today(); S.days=S.days||{}; S.days[t]=(S.days[t]||0)+n;
+  if(S.streak.last!==t){ S.streak.n = (S.streak.last===t-1)? S.streak.n+1 : 1; S.streak.last=t; }
+  const before=S.xpDay.v-n; if(before<S.set.goal && S.xpDay.v>=S.set.goal){hearts(30); toast("🎉 Đạt mục tiêu hôm nay rồi! Giỏi quá!")}
+  save(); renderTop();
+}
+function l3(h,p,v,cls=""){return `<div class="l3 ${cls}"><div class="h zh">${esc(h)}</div><div class="p">${esc(p)}</div><div class="v">${esc(v)}</div></div>`}
+function dueList(){const t=today();return W.filter(w=>S.srs[w.id]&&S.srs[w.id].due<=t)}
+function newList(){return W.filter(w=>!S.srs[w.id])}
+function streakNow(){const t=today(); return (S.streak.last===t||S.streak.last===t-1)?S.streak.n:0}
+
+/* ====== NAV ====== */
+function go(v){
+  document.querySelectorAll(".view").forEach(x=>x.classList.toggle("act",x.id==="v-"+v));
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("act",b.dataset.go===v));
+  document.querySelector(".nav").style.display=(v==="study"||v==="quiz")?"none":"";
+  if(v==="home") renderHome(); if(v==="list") renderList(); if(v==="me") renderSettings();
+  window.scrollTo(0,0);
+}
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-go]"); if(g){ if(curSpk&&hasSynth) try{speechSynthesis.cancel()}catch(_){}; go(g.dataset.go); return }
+  const q=e.target.closest("[data-quiz]"); if(q&&!q.disabled){ startQuiz(q.dataset.quiz) }
+});
+
+/* ====== HOME ====== */
+function renderTop(){ $("#streak").textContent="🔥 "+streakNow()+" ngày" }
+function renderHome(){
+  rollDay(); renderTop();
+  const h=new Date().getHours();
+  $("#greet").textContent = h<11?"Chào buổi sáng 🌸": h<14?"Nghỉ trưa học chút nhé 🍵": h<18?"Chào buổi chiều 🌷":"Buổi tối thư thả học nha 🌙";
+  const pct=Math.min(100,Math.round(S.xpDay.v/S.set.goal*100));
+  $("#ring").style.setProperty("--p",pct); $("#ringPct").textContent=pct+"%";
+  $("#goalTxt").textContent=`${S.xpDay.v} / ${S.set.goal} XP hôm nay`;
+  const due=dueList().length, nw=Math.min(newList().length, Math.max(0,S.set.newPer-S.newDay.v));
+  $("#dueTxt").textContent = (due||nw)? `${due} từ cần ôn · ${nw} từ mới` : "Xong bài hôm nay rồi! Luyện thêm cho nhớ lâu nhé 💪";
+  $("#startBtn").textContent = (due||nw)? (S.xp?"Học tiếp hôm nay ✨":"Bắt đầu học từ đầu tiên ✨") : "Luyện thêm một vòng 🎮";
+  $("#greetSub").textContent = S.xp? (pct>=100?"Hôm nay bạn đã hoàn thành mục tiêu. Tuyệt vời!":"Mỗi ngày 10 phút, từ vựng sẽ tự ở lại.") : "Bài 1 có 42 từ. Mỗi ngày học vài từ, ôn đúng lúc là nhớ lâu.";
+  const seen=Object.keys(S.srs).length, mast=Object.values(S.srs).filter(x=>x.box>=MASTER_BOX).length;
+  $("#sLearned").textContent=seen; $("#sMaster").textContent=mast; $("#sXp").textContent=S.xp;
+  renderPlan();
+  const w=W[today()%W.length]; $("#sod").innerHTML=l3(w.eh,w.ep,w.ev); $("#sodSpk").onclick=()=>speak(w.eh,$("#sodSpk"));
+}
+function dLabel(d){const dt=new Date(d*864e5); const wd=["CN","T2","T3","T4","T5","T6","T7"][dt.getUTCDay()]; return {wd, dm:dt.getUTCDate()+"/"+(dt.getUTCMonth()+1)}}
+function renderPlan(){
+  const t=today(); const days=S.days||{};
+  // past 7 days (incl. today)
+  let ph=""; for(let d=t-6; d<=t; d++){const L=dLabel(d), x=days[d]||0; ph+=`<div class="day ${x?"done":""} ${d===t?"today":""}"><b>${d===t?"Nay":L.wd}</b><span class="e">${x?(x>=S.set.goal?"🌸":"🌱"):"·"}</span>${x?x+" XP":L.dm}</div>`}
+  $("#past").innerHTML=ph;
+  // forecast next 7 days
+  let remainingNew=newList().length; const per=S.set.newPer; const todayLeft=Math.max(0,per-S.newDay.v);
+  let fh="", finishDay=null;
+  for(let i=0;i<7;i++){
+    const d=t+i, L=dLabel(d);
+    const rev = i===0 ? dueList().length : W.filter(w=>S.srs[w.id]&&S.srs[w.id].due===d).length;
+    const nw = Math.min(remainingNew, i===0?todayLeft:per); remainingNew-=nw;
+    if(nw>0) finishDay=d;
+    fh+=`<div class="day ${i===0?"today":""}"><b>${i===0?"Nay":L.wd}</b><span class="n">${nw?"+"+nw:"–"}</span>mới<br><span class="n">${rev||"–"}</span>ôn</div>`;
+  }
+  $("#plan").innerHTML=fh;
+  const left=newList().length;
+  let msg;
+  if(!left) msg="🎉 Bạn đã gặp hết 42 từ của Bài 1. Từ giờ trang chỉ đưa ra các từ đến hạn ôn, mỗi ngày vài phút là đủ.";
+  else { const n=Math.ceil(Math.max(0,left-todayLeft)/per)+(todayLeft>0?1:0); msg=`Còn ${left} từ mới, học ${per} từ/ngày thì khoảng ${n} ngày nữa là gặp hết Bài 1. Ngày mai cứ mở lại đúng trang này, bài học hôm sau tự hiện ra.`; }
+  $("#planTip").innerHTML=`<span>🗓️</span><span>${msg}</span>`;
+}
+$("#startBtn").onclick=()=>{ const due=dueList().length, nw=Math.min(newList().length,Math.max(0,S.set.newPer-S.newDay.v)); if(!due&&!nw){startQuiz("mix");return} startStudy() };
+
+/* ====== STUDY (flashcards + spaced repetition) ====== */
+let Q=[], qi=0, total=0, doneCnt=0, sessXP=0;
+function startStudy(){
+  rollDay();
+  const due=shuffle(dueList()).map(w=>({w,isNew:false}));
+  const nw=newList().slice(0,Math.max(0,S.set.newPer-S.newDay.v)).map(w=>({w,isNew:true}));
+  // interleave: new words spread among reviews
+  Q=[]; let a=due.slice(), b=nw.slice(); while(a.length||b.length){ if(b.length) Q.push(b.shift()); if(a.length) Q.push(a.shift()); if(a.length) Q.push(a.shift()); }
+  total=Q.length; doneCnt=0; sessXP=0; qi=0; go("study"); showCard();
+}
+function showCard(){
+  $("#sProg").style.width=(total?doneCnt/total*100:0)+"%"; $("#sCnt").textContent=`${doneCnt}/${total}`;
+  if(!Q.length){ return studyDone() }
+  const {w,isNew}=Q[0];
+  $("#studyBox").innerHTML=`
+   <div class="card flash" id="fc">
+     <span class="tag ${isNew?"new":""}">${isNew?"✨ Từ mới":"🔁 Ôn tập"}</span>
+     <button class="spk" id="fSpk" aria-label="Nghe">🔊</button>
+     <div class="bigzh zhs">${esc(w.han)}</div>
+     ${S.set.pyFront?`<div class="py" style="margin-top:6px">${esc(w.py)}</div>`:""}
+     <div class="hint" id="fHint">${isNew?"Đọc thử xem, rồi chạm để xem nghĩa 👆":"Bạn còn nhớ âm đọc & nghĩa không? Chạm để lật 👆"}</div>
+     <div class="back" id="fBack" style="display:none">
+       <div class="py">${esc(w.py)}</div>
+       <div class="mean">${esc(w.vi)}</div>
+       ${w.sub?`<div class="sub zh">${esc(w.sub)}</div>`:""}
+       <div class="ex"><button class="spk" id="eSpk" aria-label="Nghe câu">🔊</button>${l3(w.eh,w.ep,w.ev)}</div>
+     </div>
+   </div>
+   <button class="revealbtn" id="reveal">Lật thẻ</button>
+   <div class="rate" id="rate" style="display:none">
+     <button class="r0" data-r="0">Quên<small>gặp lại ngay</small></button>
+     <button class="r1" data-r="1">Khó<small>${isNew?"ngày mai":"1 ngày"}</small></button>
+     <button class="r2" data-r="2">Nhớ<small>${fmtNext(w,2)}</small></button>
+     <button class="r3" data-r="3">Dễ<small>${fmtNext(w,3)}</small></button>
+   </div>`;
+  $("#fSpk").onclick=e=>{e.stopPropagation();speak(w.han,$("#fSpk"))};
+  const reveal=()=>{ if($("#fBack").style.display!=="none") return; $("#fBack").style.display="block"; $("#fHint").style.display="none"; $("#reveal").style.display="none"; $("#rate").style.display="grid"; $("#eSpk").onclick=e=>{e.stopPropagation();speak(w.eh,$("#eSpk"))}; if(S.set.auto) speak(w.han,$("#fSpk")); };
+  $("#fc").onclick=reveal; $("#reveal").onclick=reveal;
+  $("#rate").onclick=e=>{const b=e.target.closest("[data-r]"); if(b) rate(+b.dataset.r)};
+}
+function nextBox(w,r){const cur=S.srs[w.id]?S.srs[w.id].box:0; if(r===0) return 0; if(r===1) return Math.max(1,cur); if(r===2) return Math.min(INTERVALS.length-1,cur+1); return Math.min(INTERVALS.length-1,cur+2)}
+function fmtNext(w,r){const d=INTERVALS[nextBox(w,r)]; return d>=30?Math.round(d/30)+" tháng":d+" ngày"}
+function rate(r){
+  const it=Q.shift(); const w=it.w;
+  if(it.isNew){ S.newDay.v++; }
+  const box=nextBox(w,r);
+  const prev=S.srs[w.id]||{box:0,due:today(),lapses:0,seen:0};
+  S.srs[w.id]={box, due: today()+(r===0?0:INTERVALS[box]||1), lapses:prev.lapses+(r===0?1:0), seen:prev.seen+1};
+  if(r===0){ Q.splice(Math.min(3,Q.length),0,{w,isNew:false}); total++; }
+  doneCnt++; const xp = r===0?1:2; sessXP+=xp; addXP(xp);
+  showCard();
+}
+function studyDone(){
+  $("#sProg").style.width="100%";
+  hearts(18);
+  $("#studyBox").innerHTML=`<div class="card done"><div class="big">🌸</div><h2>Xong buổi học!</h2><p>+${sessXP} XP · chuỗi ${streakNow()} ngày 🔥</p><p>Những từ bạn chọn “Quên” sẽ gặp lại sớm. Cố lên nhé!</p>
+   <button class="revealbtn" data-quiz="mix">Củng cố bằng 10 câu đố 🎮</button>
+   <button class="next show" data-go="home" style="background:#fff;color:var(--ink);border:1.5px solid var(--line)">Về trang chủ</button></div>`;
+}
+
+/* ====== QUIZ ====== */
+let QZ=[], qzi=0, qzOK=0, qzMode="mix";
+function pool(){ // prioritise words seen & weak, fall back to all
+  const seen=W.filter(w=>S.srs[w.id]);
+  const base = seen.length>=6? seen : W;
+  return shuffle(base).sort((a,b)=>((S.srs[a.id]||{box:9}).box)-((S.srs[b.id]||{box:9}).box));
+}
+function startQuiz(mode){
+  qzMode=mode; const modes=["mean","han","py","cloze"].concat(canSpeak()?["listen"]:[]);
+  const words=shuffle(pool().slice(0,16)).slice(0,10);
+  QZ=words.map(w=>({w,m: mode==="mix"? modes[Math.random()*modes.length|0] : mode}));
+  qzi=0; qzOK=0; go("quiz"); showQ();
+}
+function distract(w,field,n=3){return shuffle(W.filter(x=>x.id!==w.id&&x[field]!==w[field])).slice(0,n)}
+function showQ(){
+  $("#qProg").style.width=(qzi/QZ.length*100)+"%"; $("#qCnt").textContent=`${qzi}/${QZ.length}`;
+  if(qzi>=QZ.length) return quizDone();
+  const {w,m}=QZ[qzi]; let head="", opts=[], correct="", zhOpt=false, field;
+  if(m==="mean"){ head=`<div class="qlbl">Từ này nghĩa là gì?</div><div class="qzh zhs">${esc(w.han)}</div>`; field="vi"; }
+  else if(m==="han"){ head=`<div class="qlbl">Chọn chữ Hán đúng</div><div class="qtext">${esc(w.vi)}</div>`; field="han"; zhOpt=true; }
+  else if(m==="py"){ head=`<div class="qlbl">Đọc thế nào?</div><div class="qzh zhs">${esc(w.han)}</div>`; field="py"; }
+  else if(m==="listen"){ head=`<div class="qlbl">Nghe và chọn chữ Hán</div><button class="spk" id="qSpk" style="width:84px;height:84px;font-size:36px">🔊</button><div class="hint">Chạm để nghe lại</div>`; field="han"; zhOpt=true; }
+  else { const s=w.eh.replace(w.key,"<u>？</u>"); head=`<div class="qlbl">Điền từ thích hợp vào chỗ trống</div><div class="cloze zh">${s.split("<u>？</u>").map(esc).join("<u>？</u>")}</div><div class="hint">${esc(w.ev)}</div>`; field="key"; zhOpt=true; }
+  correct=w[field];
+  const choices=shuffle([w,...distract(w,field)]);
+  $("#quizBox").innerHTML=`<div class="card q">${head}</div>
+    <div class="opts">${choices.map((c,i)=>`<button class="opt ${zhOpt?"zhopt zh":""}" data-v="${esc(c[field])}"><span class="k">${"ABCD"[i]}</span><span>${esc(c[field])}</span></button>`).join("")}</div>
+    <div class="fb" id="fb"></div><button class="next" id="nextQ">Tiếp tục →</button>`;
+  if(m==="listen"){ const b=$("#qSpk"); b.onclick=()=>speak(w.han,b); setTimeout(()=>speak(w.han,b),250); }
+  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(b,correct,w));
+}
+function answer(btn,correct,w){
+  const all=document.querySelectorAll(".opt"); all.forEach(b=>b.disabled=true);
+  const ok=btn.dataset.v===correct;
+  all.forEach(b=>{ if(b.dataset.v===correct) b.classList.add("ok") }); if(!ok) btn.classList.add("bad");
+  const fb=$("#fb"); fb.className="fb show "+(ok?"ok":"bad");
+  fb.innerHTML=`<div class="row"><b>${ok?["Chính xác! 🎉","Giỏi lắm! 💖","Đúng rồi! ✨"][Math.random()*3|0]:"Chưa đúng, nhớ lại nhé 💗"}</b><button class="spk" id="fbSpk">🔊</button></div>
+    <div class="l3" style="margin-top:2px"><div class="h zh">${esc(w.han)}</div><div class="p">${esc(w.py)}</div><div class="v">${esc(w.vi)}</div></div>
+    <div class="l3" style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.08)"><div class="h zh" style="font-size:16px">${esc(w.eh)}</div><div class="p" style="font-size:13.5px">${esc(w.ep)}</div><div class="v" style="font-size:13px">${esc(w.ev)}</div></div>`;
+  $("#fbSpk").onclick=()=>speak(w.eh,$("#fbSpk"));
+  if(ok){ qzOK++; addXP(3) }
+  else { // send to review: due today, drop one box
+    const s=S.srs[w.id]||{box:0,lapses:0,seen:0}; S.srs[w.id]={...s,box:Math.max(0,(s.box||0)-1),due:today(),lapses:(s.lapses||0)+1}; save();
+  }
+  const n=$("#nextQ"); n.classList.add("show"); n.onclick=()=>{qzi++;showQ()}; n.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function quizDone(){
+  $("#qProg").style.width="100%"; $("#qCnt").textContent=`${QZ.length}/${QZ.length}`;
+  const p=qzOK/QZ.length; if(p>=.8) hearts(26);
+  $("#quizBox").innerHTML=`<div class="card done"><div class="big">${p>=.8?"🏆":p>=.5?"🌷":"🌱"}</div><h2>${qzOK}/${QZ.length} câu đúng</h2>
+   <p>${p>=.8?"Xuất sắc! Mặt chữ đang quay về rồi đó.":p>=.5?"Khá lắm! Các từ sai đã được đưa vào danh sách ôn.":"Không sao, từ sai đã vào danh sách ôn. Lật thẻ thêm một vòng nhé!"}</p>
+   <button class="revealbtn" data-quiz="${qzMode}">Chơi lại 🔁</button>
+   <button class="next show" data-go="home" style="background:#fff;color:var(--ink);border:1.5px solid var(--line)">Về trang chủ</button></div>`;
+}
+
+/* ====== LIST ====== */
+let filt="all";
+$("#chips").onclick=e=>{const c=e.target.closest(".chip"); if(!c) return; filt=c.dataset.f; document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("act",x===c)); renderList()};
+$("#q").oninput=renderList;
+function dots(w){const b=S.srs[w.id]?S.srs[w.id].box:-1; let s=""; for(let i=1;i<=5;i++) s+=`<i class="${b>=i?"f":""}"></i>`; return `<div class="dots" title="Mức nhớ">${s}</div>`}
+function renderList(){
+  const q=$("#q").value.trim().toLowerCase();
+  const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+  const match=(...xs)=>!q||xs.some(x=>x.toLowerCase().includes(q)||norm(x).includes(norm(q)));
+  let html="";
+  if(filt!=="pn"){
+    let ws=W.filter(w=>filt==="all"||w.g===filt||(filt==="weak"&&(!S.srs[w.id]||S.srs[w.id].box<MASTER_BOX))).filter(w=>match(w.han,w.py,w.vi,w.id));
+    html+=ws.map(w=>`<div class="wi" data-id="${w.id}"><div class="wh"><div class="z zhs">${esc(w.han)}</div><div class="m"><b>${esc(w.py)}</b><span>${esc(w.vi)}</span></div>${dots(w)}</div>
+      <div class="wb">${w.sub?`<div class="sub zh" style="text-align:left;margin:0 0 6px">${esc(w.sub)}</div>`:""}<div class="ex" style="margin-top:6px"><button class="spk" data-say="${esc(w.eh)}">🔊</button>${l3(w.eh,w.ep,w.ev)}</div>
+      <div style="display:flex;gap:8px;margin-top:10px"><button class="chip" data-say="${esc(w.han)}">🔊 Nghe từ</button></div></div></div>`).join("");
+    if(!ws.length) html+=`<p class="note">Không tìm thấy từ nào 🌸</p>`;
+  }
+  if(filt==="all"||filt==="pn"){
+    const ps=PN.filter(p=>match(...p));
+    if(ps.length) html+=`<h2 class="sec">🏷️ Danh từ riêng</h2>`+ps.map(p=>`<div class="wi"><div class="wh" data-say="${esc(p[0])}"><div class="z zhs" style="font-size:19px;min-width:auto">${esc(p[0])}</div><div class="m"><b>${esc(p[1])}</b><span>${esc(p[2])}</span></div><span>🔊</span></div></div>`).join("");
+  }
+  $("#list").innerHTML=html;
+}
+$("#list").onclick=e=>{
+  const s=e.target.closest("[data-say]"); if(s){ speak(s.dataset.say, s.classList.contains("spk")?s:null); return }
+  const h=e.target.closest(".wh"); if(h){ h.parentElement.classList.toggle("open") }
+};
+
+/* ====== SETTINGS ====== */
+function renderSettings(){
+  document.querySelectorAll("#segNew button").forEach(b=>b.classList.toggle("act",+b.dataset.v===S.set.newPer));
+  document.querySelectorAll("#segGoal button").forEach(b=>b.classList.toggle("act",+b.dataset.v===S.set.goal));
+  $("#swPy").classList.toggle("on",S.set.pyFront); $("#swAuto").classList.toggle("on",S.set.auto);
+  $("#resetBtn").textContent="Xoá toàn bộ tiến độ"; $("#resetBtn").dataset.c="";
+}
+$("#segNew").onclick=e=>{const b=e.target.closest("button"); if(!b) return; S.set.newPer=+b.dataset.v; save(); renderSettings()};
+$("#segGoal").onclick=e=>{const b=e.target.closest("button"); if(!b) return; S.set.goal=+b.dataset.v; save(); renderSettings()};
+$("#swPy").onclick=()=>{S.set.pyFront=!S.set.pyFront; save(); renderSettings()};
+$("#swAuto").onclick=()=>{S.set.auto=!S.set.auto; save(); renderSettings()};
+$("#resetBtn").onclick=()=>{const b=$("#resetBtn"); if(!b.dataset.c){b.dataset.c="1"; b.textContent="Bấm lần nữa để xác nhận xoá"; return} const set=S.set; S=blank(); S.set=set; save(); toast("Đã xoá tiến độ. Bắt đầu lại nhé 🌱"); renderSettings()};
+
+updateListenTiles(); renderHome();
+</script>
+</body>
+</html>
