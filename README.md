@@ -18,6 +18,7 @@ Tính năng:
 - **5 dạng luyện tập:** nhìn chữ đoán nghĩa, nghĩa → chữ Hán, chữ Hán → pinyin, nghe chọn chữ, điền từ vào câu.
 - **Lộ trình:** chuỗi ngày học 🔥, mục tiêu XP và dự báo 7 ngày tới.
 - **Sổ từ:** tìm được cả khi gõ không dấu, nghe phát âm từng từ.
+- **Nhật ký học:** lưu lại từ đã học theo từng ngày, xem lại và ôn lại riêng từng ngày.
 
 ### Mở web bằng GitHub Pages
 

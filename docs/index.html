@@ -179,6 +179,25 @@ h2.sec{font-size:15px;margin:22px 4px 10px;display:flex;align-items:center;gap:8
 .day.today{border-color:var(--pink);background:#fff}
 .day.done{background:linear-gradient(160deg,#ffd3e3,#ffe8d9)}
 .day .n{font-weight:700;color:var(--pink-d)}
+.hd{background:#fff;border-radius:18px;border:1px solid #fde3ec;margin-bottom:12px;overflow:hidden;box-shadow:0 6px 18px -14px rgba(226,71,126,.6)}
+.hd .hh{display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer}
+.hd .dt{width:52px;height:52px;border-radius:15px;background:linear-gradient(150deg,#ffd3e3,#ffe8d9);display:grid;place-items:center;text-align:center;flex:none;line-height:1.1}
+.hd .dt b{font-size:18px;display:block;color:var(--pink-d)}
+.hd .dt span{font-size:10.5px;color:var(--ink2)}
+.hd .inf{flex:1;min-width:0}
+.hd .inf b{display:block;font-size:14.5px}
+.hd .inf span{font-size:12.5px;color:var(--ink2)}
+.hd .zs{font-size:15px;color:var(--ink);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hd .hb{display:none;padding:0 14px 14px}
+.hd.open .hb{display:block}
+.hd.open .hh{background:var(--pink-xs)}
+.hw{border-top:1px dashed var(--line);padding:10px 0;position:relative}
+.hw .l3{margin-top:0;padding-right:44px}
+.hw .spk{position:absolute;top:10px;right:0;width:34px;height:34px;font-size:15px}
+.hw .exs{font-size:13px;color:var(--ink2);margin-top:6px;padding-left:10px;border-left:3px solid var(--pink-s)}
+.hw .exs .zh{color:var(--ink);font-size:14.5px}
+.badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:99px;background:#fff3d6;color:#b77400;margin-left:6px;vertical-align:middle}
+.badge.r{background:var(--pink-xs);color:var(--pink-d)}
 .tip{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink2);background:#fff;border:1px dashed var(--pink-s);border-radius:16px;padding:12px 14px;margin-top:12px}
 </style>
 </head>
@@ -270,6 +289,13 @@ h2.sec{font-size:15px;margin:22px 4px 10px;display:flex;align-items:center;gap:8
     <div id="list"></div>
   </section>
 
+  <!-- HISTORY -->
+  <section class="view" id="v-hist">
+    <h2 class="sec" style="margin-top:4px">📅 Nhật ký học</h2>
+    <p style="font-size:13px;color:var(--ink2);margin:-4px 4px 12px">Ngày nào học từ nào đều được lưu ở đây. Chạm vào một ngày để xem lại, hoặc ôn lại riêng các từ của ngày đó.</p>
+    <div id="hist"></div>
+  </section>
+
   <!-- SETTINGS -->
   <section class="view" id="v-me">
     <h2 class="sec" style="margin-top:4px">⚙️ Cài đặt học</h2>
@@ -295,6 +321,7 @@ h2.sec{font-size:15px;margin:22px 4px 10px;display:flex;align-items:center;gap:8
   <button data-go="home" class="act"><span class="e">🏠</span>Hôm nay</button>
   <button data-go="practice"><span class="e">🎮</span>Luyện tập</button>
   <button data-go="list"><span class="e">📒</span>Sổ từ</button>
+  <button data-go="hist"><span class="e">📅</span>Nhật ký</button>
   <button data-go="me"><span class="e">🌷</span>Cài đặt</button>
 </div></nav>
 <div class="toast" id="toast"></div>
@@ -433,7 +460,7 @@ function go(v){
   document.querySelectorAll(".view").forEach(x=>x.classList.toggle("act",x.id==="v-"+v));
   document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("act",b.dataset.go===v));
   document.querySelector(".nav").style.display=(v==="study"||v==="quiz")?"none":"";
-  if(v==="home") renderHome(); if(v==="list") renderList(); if(v==="me") renderSettings();
+  if(v==="home") renderHome(); if(v==="list") renderList(); if(v==="me") renderSettings(); if(v==="hist") renderHist();
   window.scrollTo(0,0);
 }
 document.addEventListener("click",e=>{
@@ -459,11 +486,62 @@ function renderHome(){
   renderPlan();
   const w=W[today()%W.length]; $("#sod").innerHTML=l3(w.eh,w.ep,w.ev); $("#sodSpk").onclick=()=>speak(w.eh,$("#sodSpk"));
 }
+/* ====== NHẬT KÝ HỌC ====== */
+function logWord(id,isNew){
+  const t=today(); S.log=S.log||{}; const L=S.log[t]=S.log[t]||{n:[],r:[]};
+  if(isNew){ if(!L.n.includes(id)) L.n.push(id) }
+  else if(!L.n.includes(id) && !L.r.includes(id)) L.r.push(id);
+}
+function fullDate(d){const dt=new Date(d*864e5); const wd=["Chủ nhật","Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7"][dt.getUTCDay()]; return wd+", "+dt.getUTCDate()+"/"+(dt.getUTCMonth()+1)+"/"+dt.getUTCFullYear()}
+function histWord(w,badge){
+  return `<div class="hw"><button class="spk" data-say="${esc(w.han)}">🔊</button>
+    <div class="l3"><div class="h zh" style="font-size:22px">${esc(w.han)}${badge}</div><div class="p">${esc(w.py)}</div><div class="v">${esc(w.vi)}</div></div>
+    <div class="exs"><div class="zh">${esc(w.eh)}</div><div style="color:var(--pink-d)">${esc(w.ep)}</div><div>${esc(w.ev)}</div></div></div>`;
+}
+function renderHist(openDay){
+  const log=S.log||{}; const t=today();
+  const daysList=Object.keys(log).map(Number).filter(d=>(log[d].n.length+log[d].r.length)>0).sort((a,b)=>b-a);
+  const logged=new Set(); daysList.forEach(d=>{log[d].n.forEach(i=>logged.add(i)); log[d].r.forEach(i=>logged.add(i))});
+  const older=W.filter(w=>S.srs[w.id]&&!logged.has(w.id));
+  let html="";
+  daysList.forEach(d=>{
+    const L=log[d], ids=[...L.n,...L.r].filter(i=>BYID[i]), dt=new Date(d*864e5);
+    html+=`<div class="hd ${d===openDay?"open":""}" id="hd-${d}"><div class="hh">
+      <div class="dt"><b>${dt.getUTCDate()}</b><span>th ${dt.getUTCMonth()+1}</span></div>
+      <div class="inf"><b>${d===t?"Hôm nay":d===t-1?"Hôm qua":fullDate(d)}</b><span>${L.n.length} từ mới · ${L.r.length} từ ôn${(S.days||{})[d]?" · "+S.days[d]+" XP":""}</span>
+      <div class="zs zh">${ids.map(i=>BYID[i].han).join(" · ")}</div></div><span style="color:var(--ink2)">▾</span></div>
+      <div class="hb"><button class="revealbtn" style="margin:0 0 6px" data-review="${d}">🔁 Ôn lại ${ids.length} từ của ngày này</button>
+      ${L.n.filter(i=>BYID[i]).map(i=>histWord(BYID[i],'<span class="badge">mới</span>')).join("")}
+      ${L.r.filter(i=>BYID[i]).map(i=>histWord(BYID[i],'<span class="badge r">ôn</span>')).join("")}</div></div>`;
+  });
+  if(older.length){
+    html+=`<div class="hd ${openDay==="old"?"open":""}"><div class="hh"><div class="dt"><b>📚</b><span>trước</span></div>
+      <div class="inf"><b>Các từ đã học trước đó</b><span>${older.length} từ (học trước khi có nhật ký)</span><div class="zs zh">${older.map(w=>w.han).join(" · ")}</div></div><span style="color:var(--ink2)">▾</span></div>
+      <div class="hb"><button class="revealbtn" style="margin:0 0 6px" data-review="old">🔁 Ôn lại ${older.length} từ này</button>${older.map(w=>histWord(w,"")).join("")}</div></div>`;
+  }
+  if(!html) html=`<div class="card done"><div class="big">🌱</div><h2>Chưa có ngày học nào</h2><p>Học xong buổi đầu tiên, các từ sẽ được lưu lại ở đây theo từng ngày.</p><button class="revealbtn" data-go="home">Bắt đầu học</button></div>`;
+  $("#hist").innerHTML=html;
+  if(openDay!=null){const el=document.getElementById("hd-"+openDay); if(el) setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),50)}
+}
+$("#hist").onclick=e=>{
+  const s=e.target.closest("[data-say]"); if(s){speak(s.dataset.say,s);return}
+  const r=e.target.closest("[data-review]"); if(r){
+    const k=r.dataset.review; let ws;
+    if(k==="old"){const log=S.log||{}, logged=new Set(); Object.values(log).forEach(L=>[...L.n,...L.r].forEach(i=>logged.add(i))); ws=W.filter(w=>S.srs[w.id]&&!logged.has(w.id))}
+    else {const L=(S.log||{})[k]; ws=[...L.n,...L.r].map(i=>BYID[i]).filter(Boolean)}
+    startStudyWith(ws); return }
+  const h=e.target.closest(".hh"); if(h) h.parentElement.classList.toggle("open");
+};
+function startStudyWith(ws){
+  Q=shuffle(ws).map(w=>({w,isNew:!S.srs[w.id]})); total=Q.length; doneCnt=0; sessXP=0; go("study"); showCard();
+}
+$("#past").onclick=e=>{const d=e.target.closest("[data-day]"); if(d){go("hist"); renderHist(+d.dataset.day)}};
+
 function dLabel(d){const dt=new Date(d*864e5); const wd=["CN","T2","T3","T4","T5","T6","T7"][dt.getUTCDay()]; return {wd, dm:dt.getUTCDate()+"/"+(dt.getUTCMonth()+1)}}
 function renderPlan(){
   const t=today(); const days=S.days||{};
   // past 7 days (incl. today)
-  let ph=""; for(let d=t-6; d<=t; d++){const L=dLabel(d), x=days[d]||0; ph+=`<div class="day ${x?"done":""} ${d===t?"today":""}"><b>${d===t?"Nay":L.wd}</b><span class="e">${x?(x>=S.set.goal?"🌸":"🌱"):"·"}</span>${x?x+" XP":L.dm}</div>`}
+  let ph=""; for(let d=t-6; d<=t; d++){const L=dLabel(d), x=days[d]||0; ph+=`<div class="day ${x?"done":""} ${d===t?"today":""}" ${x?`data-day="${d}" style="cursor:pointer"`:""}><b>${d===t?"Nay":L.wd}</b><span class="e">${x?(x>=S.set.goal?"🌸":"🌱"):"·"}</span>${x?x+" XP":L.dm}</div>`}
   $("#past").innerHTML=ph;
   // forecast next 7 days
   let remainingNew=newList().length; const per=S.set.newPer; const todayLeft=Math.max(0,per-S.newDay.v);
@@ -529,6 +607,7 @@ function fmtNext(w,r){const d=INTERVALS[nextBox(w,r)]; return d>=30?Math.round(d
 function rate(r){
   const it=Q.shift(); const w=it.w;
   if(it.isNew){ S.newDay.v++; }
+  logWord(w.id, it.isNew && !(S.srs[w.id]));
   const box=nextBox(w,r);
   const prev=S.srs[w.id]||{box:0,due:today(),lapses:0,seen:0};
   S.srs[w.id]={box, due: today()+(r===0?0:INTERVALS[box]||1), lapses:prev.lapses+(r===0?1:0), seen:prev.seen+1};
